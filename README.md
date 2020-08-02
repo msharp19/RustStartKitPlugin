@@ -3,25 +3,25 @@ A starter kit plugin for Rust
 <br>
 ## Example Configuration
 {<br>
-  >"Enabled": true,<br>
-  >"CommandsToRunOnRespawnEnabled": true,<br>
-  >"CommandsToRunOnRespawn": [],<br>
-  >"ItemsToAddToInventoryOnRespawnEnabled": true,<br>
-  >"ItemsToAddToInventoryOnRespawn": [<br>
-    >{<br>
-      >>>"ShortCode": "pumpkin",<br>
-      >>>"Amount": 2<br>
-    >>},<br>
-    >>{<br>
-      >>>"ShortCode": "bow.hunting",<br>
-      >>>"Amount": 1<br>
-    >>},<br>
-    >>{<br>
-      >>>"ShortCode": "arrow.wooden",<br>
-      >>>"Amount": 5<br>
-    >>}<br>
-  >],<br>
-  >"ShowRespawnMessage": false,<br>
-  >"RespawnMessage": "",<br>
-  >"RemoveExistingInventory": false<br>
+  &nbsp;&nbsp;"Enabled": true,<br>
+  &nbsp;&nbsp;"CommandsToRunOnRespawnEnabled": true,<br>
+  &nbsp;&nbsp;"CommandsToRunOnRespawn": [],<br>
+  &nbsp;&nbsp;"ItemsToAddToInventoryOnRespawnEnabled": true,<br>
+  &nbsp;&nbsp;"ItemsToAddToInventoryOnRespawn": [<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ShortCode": "pumpkin",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Amount": 2<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ShortCode": "bow.hunting",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Amount": 1<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ShortCode": "arrow.wooden",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Amount": 5<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+  &nbsp;&nbsp;],<br>
+  &nbsp;&nbsp;"ShowRespawnMessage": false,<br>
+  &nbsp;&nbsp;"RespawnMessage": "",<br>
+  &nbsp;&nbsp;"RemoveExistingInventory": false<br>
 }<br>
