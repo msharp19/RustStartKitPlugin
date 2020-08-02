@@ -8,6 +8,7 @@ namespace Oxide.Plugins
     /// Plugin that allows Rust starter kits
     /// </summary>
     [Info("StarterKit", "matta", "1.0")]
+    [Description("Starter kits for both new and existing players (spawn-respawn). This also includes the ability to run commands on spawn/respawn so this can be used in conjunction with other plugin commands ie. recycler.give USER")]
     public class StarterKit : RustPlugin
     {
         private StarterKitConfig _config;
@@ -32,13 +33,8 @@ namespace Oxide.Plugins
             // Check the start kit is enabled
             if (_config.Enabled)
             {
-                // Check if commands are to be run
-                if (_config.CommandsToRunOnSpawnEnabled)
-                    RunCommands(player, _config.CommandsToRunOnSpawn);
-
-                // Add inventory items defined in config
-                if(_config.ItemsToAddToInventoryOnSpawnEnabled)
-                    AddInventoryItems(player, _config.ItemsToAddToInventoryOnSpawn);
+                // Add starter kit
+                AddStarterKit(player, _config.CommandsToRunOnSpawn, _config.ItemsToAddToInventoryOnSpawn);
             }
 
             return null;
@@ -50,24 +46,45 @@ namespace Oxide.Plugins
         /// <param name="player"></param>
         void OnUserRespawned(IPlayer player)
         {
+            // Check the start kit is enabled
             if (_config.Enabled)
             {
                 // Convert to base player
                 var respawnPlayer = player.Object as BasePlayer;
 
-                // Check if commands are to be run
-                if (_config.CommandsToRunOnRespawnEnabled)
-                    RunCommands(respawnPlayer, _config.CommandsToRunOnRespawn);
-
-                // Add inventory items defined in config
-                if (_config.ItemsToAddToInventoryOnRespawnEnabled)
-                    AddInventoryItems(respawnPlayer, _config.ItemsToAddToInventoryOnRespawn);
+                // Add starter kit
+                AddStarterKit(respawnPlayer, _config.CommandsToRunOnRespawn, _config.ItemsToAddToInventoryOnRespawn);
             }
         }
 
         #endregion Hooks
 
         #region Helpers
+
+        /// <summary>
+        /// Creates a starter kit using config from commands and predetermined inventory items
+        /// </summary>
+        /// <param name="player">The player to equip</param>
+        /// <param name="commands">Any commands to run (to map other plugins)</param>
+        /// <param name="inventoryItems">And inventory items to provide players with</param>
+        private void AddStarterKit(BasePlayer player, List<string> commands, List<InventoryItem> inventoryItems)
+        {
+            // If we want to remove stone & torch
+            if (_config.RemoveExistingInventory)
+                player.inventory.Strip();
+
+            // Check if commands are to be run
+            if (_config.CommandsToRunOnRespawnEnabled)
+                RunCommands(player, commands);
+
+            // Add inventory items defined in config
+            if (_config.ItemsToAddToInventoryOnRespawnEnabled)
+                AddInventoryItems(player, inventoryItems);
+
+            // If we want to notify the user about the starter kit
+            if (_config.ShowRespawnMessage)
+                player.ChatMessage(_config.RespawnMessage);
+        }
 
         /// <summary>
         /// Runs commands (defined in config)
@@ -106,10 +123,11 @@ namespace Oxide.Plugins
                     // Safely try to add inventory item
                     player.inventory.GiveItem(ItemManager.CreateByName(inventoryItem.ShortCode, inventoryItem.Amount));
                 }
-                catch
+                catch(Exception ex)
                 {
                     // If error - log it but then we can continue to add the rest of the inventory items
-                    Puts($"Error adding inventory item:{inventoryItem.ShortCode} with amount:{inventoryItem.Amount}");
+                    Puts($"Error adding inventory item:{inventoryItem.ShortCode} with amount:{inventoryItem.Amount}.");
+                    Puts($"Stacktrace: {ex.StackTrace}");
                 }
             }
         }
@@ -166,9 +184,19 @@ namespace Oxide.Plugins
         public bool Enabled { get; set; }
 
         /// <summary>
+        /// Allows for the commands to be turned of (if not needed) for on spawn command actions
+        /// </summary>
+        public bool CommandsToRunOnSpawnEnabled { get; set; }
+
+        /// <summary>
         /// List of commands to run as part of starter kit (ie. can give recycler) on spawn
         /// </summary>
         public List<string> CommandsToRunOnSpawn { get; set; }
+
+        /// <summary>
+        /// Allows for the commands to be turned of (if not needed) for on respawn command actions
+        /// </summary>
+        public bool CommandsToRunOnRespawnEnabled { get; set; }
 
         /// <summary>
         /// List of commands to run as part of starter kit (ie. can give recycler) on respawn
@@ -176,24 +204,14 @@ namespace Oxide.Plugins
         public List<string> CommandsToRunOnRespawn { get; set; }
 
         /// <summary>
-        /// Allows for the commands to be turned of (if not needed) for on spawn command actions
-        /// </summary>
-        public bool CommandsToRunOnSpawnEnabled { get; set; }
-
-        /// <summary>
-        /// Items to add to the inventory on spawn
-        /// </summary>
-        public List<InventoryItem> ItemsToAddToInventoryOnSpawn { get; set; }
-
-        /// <summary>
         /// Allows items to be added to player inventory on spawn to be turned of (if not needed)
         /// </summary>
         public bool ItemsToAddToInventoryOnSpawnEnabled { get; set; }
 
         /// <summary>
-        /// Allows for the commands to be turned of (if not needed) for on respawn command actions
+        /// Items to add to the inventory on spawn
         /// </summary>
-        public bool CommandsToRunOnRespawnEnabled { get; set; }
+        public List<InventoryItem> ItemsToAddToInventoryOnSpawn { get; set; }
 
         /// <summary>
         /// Allows items to be added to player inventory on respawn to be turned of (if not needed)
@@ -204,6 +222,21 @@ namespace Oxide.Plugins
         /// Items to add to the inventory on respawn
         /// </summary>
         public List<InventoryItem> ItemsToAddToInventoryOnRespawn { get; set; }
+
+        /// <summary>
+        /// Switch to enable the respawn message to be shown
+        /// </summary>
+        public bool ShowRespawnMessage { get; set; }
+
+        /// <summary>
+        /// The message to be shown on respawn (if enabled) to alert user to starter kit
+        /// </summary>
+        public string RespawnMessage { get; set; }
+
+        /// <summary>
+        /// Switch to remove all existing inventory items (stone & torch)
+        /// </summary>
+        public bool RemoveExistingInventory { get; set; }
 
         /// <summary>
         /// Constructor - sets defaults
@@ -220,6 +253,9 @@ namespace Oxide.Plugins
             CommandsToRunOnRespawnEnabled = false;
             CommandsToRunOnRespawn = new List<string>();
             CommandsToRunOnSpawn = new List<string>();
+            ShowRespawnMessage = false;
+            RespawnMessage = string.Empty;
+            RemoveExistingInventory = false;
         }
     }
 
