@@ -1,8 +1,8 @@
 # RustStarterKitPlugin
 A starter kit plugin for Rust
-
+<br>
 ## Example Configuration
-{
+{<br>
   "Enabled": true, // Global switch for starter kit
   "CommandsToRunOnSpawnEnabled": true, // Switch for commands to be run on INITIAL spawn
   "CommandsToRunOnSpawn": ["recycler.give {0}"], // The commands to be run on INITIAL spawn. {0} -> UserId is injected where this is placed
