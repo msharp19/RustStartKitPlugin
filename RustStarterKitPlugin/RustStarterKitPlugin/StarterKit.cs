@@ -11,6 +11,9 @@ namespace Oxide.Plugins
     [Description("Starter kits for both new and existing players (spawn-respawn). This also includes the ability to run commands on spawn/respawn so this can be used in conjunction with other plugin commands ie. recycler.give USER")]
     public class StarterKit : RustPlugin
     {
+        /// <summary>
+        /// Class config
+        /// </summary>
         private StarterKitConfig _config;
 
         #region Hooks 
@@ -21,23 +24,6 @@ namespace Oxide.Plugins
         void Init()
         {
             Puts("RustStarterKit loaded.");
-        }
-
-        /// <summary>
-        /// Called on player first spawn
-        /// </summary>
-        /// <param name="player">The player spawned</param>
-        /// <returns></returns>
-        object OnPlayerSpawn(BasePlayer player)
-        {
-            // Check the start kit is enabled
-            if (_config.Enabled)
-            {
-                // Add starter kit
-                AddStarterKit(player, _config.CommandsToRunOnSpawn, _config.ItemsToAddToInventoryOnSpawn);
-            }
-
-            return null;
         }
 
         /// <summary>
@@ -184,16 +170,6 @@ namespace Oxide.Plugins
         public bool Enabled { get; set; }
 
         /// <summary>
-        /// Allows for the commands to be turned of (if not needed) for on spawn command actions
-        /// </summary>
-        public bool CommandsToRunOnSpawnEnabled { get; set; }
-
-        /// <summary>
-        /// List of commands to run as part of starter kit (ie. can give recycler) on spawn
-        /// </summary>
-        public List<string> CommandsToRunOnSpawn { get; set; }
-
-        /// <summary>
         /// Allows for the commands to be turned of (if not needed) for on respawn command actions
         /// </summary>
         public bool CommandsToRunOnRespawnEnabled { get; set; }
@@ -202,16 +178,6 @@ namespace Oxide.Plugins
         /// List of commands to run as part of starter kit (ie. can give recycler) on respawn
         /// </summary>
         public List<string> CommandsToRunOnRespawn { get; set; }
-
-        /// <summary>
-        /// Allows items to be added to player inventory on spawn to be turned of (if not needed)
-        /// </summary>
-        public bool ItemsToAddToInventoryOnSpawnEnabled { get; set; }
-
-        /// <summary>
-        /// Items to add to the inventory on spawn
-        /// </summary>
-        public List<InventoryItem> ItemsToAddToInventoryOnSpawn { get; set; }
 
         /// <summary>
         /// Allows items to be added to player inventory on respawn to be turned of (if not needed)
@@ -245,14 +211,10 @@ namespace Oxide.Plugins
         {
             // Defaults (off and empty)
             Enabled = false;
-            ItemsToAddToInventoryOnSpawnEnabled = false;
             ItemsToAddToInventoryOnRespawnEnabled = false;
-            ItemsToAddToInventoryOnSpawn = new List<InventoryItem>();
             ItemsToAddToInventoryOnRespawn = new List<InventoryItem>();
-            CommandsToRunOnSpawnEnabled = false;
             CommandsToRunOnRespawnEnabled = false;
             CommandsToRunOnRespawn = new List<string>();
-            CommandsToRunOnSpawn = new List<string>();
             ShowRespawnMessage = false;
             RespawnMessage = string.Empty;
             RemoveExistingInventory = false;
