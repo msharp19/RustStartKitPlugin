@@ -8,7 +8,7 @@ A starter kit plugin for Rust
   >"CommandsToRunOnRespawn": [],<br>
   >"ItemsToAddToInventoryOnRespawnEnabled": true,<br>
   >"ItemsToAddToInventoryOnRespawn": [<br>
-    >>{<br>
+    >{<br>
       >>>"ShortCode": "pumpkin",<br>
       >>>"Amount": 2<br>
     >>},<br>
