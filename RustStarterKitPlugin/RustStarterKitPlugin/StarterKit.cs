@@ -7,10 +7,10 @@ namespace Oxide.Plugins
     /// <summary>
     /// Plugin that allows Rust starter kits
     /// </summary>
-    [Info("RustStarterKit", "matta", "1.0")]
-    public class RustStartKit : RustPlugin
+    [Info("StarterKit", "matta", "1.0")]
+    public class StarterKit : RustPlugin
     {
-        private StartKitConfig _config;
+        private StarterKitConfig _config;
 
         #region Hooks 
 
@@ -126,7 +126,7 @@ namespace Oxide.Plugins
             try
             {
                 // Try to read config
-                _config = Config.ReadObject<StartKitConfig>();
+                _config = Config.ReadObject<StarterKitConfig>();
 
                 // If empty then load the default
                 if (_config == null) 
@@ -148,7 +148,7 @@ namespace Oxide.Plugins
         /// The default config is loaded in constructor (everything turned off)
         /// </summary>
         protected override void LoadDefaultConfig() 
-            => _config = new StartKitConfig();
+            => _config = new StarterKitConfig();
 
         #endregion Helpers
     }
@@ -158,7 +158,7 @@ namespace Oxide.Plugins
     /// <summary>
     /// Config class
     /// </summary>
-    public class StartKitConfig
+    public class StarterKitConfig
     {
         /// <summary>
         /// If the start kit is enabled
@@ -208,7 +208,7 @@ namespace Oxide.Plugins
         /// <summary>
         /// Constructor - sets defaults
         /// </summary>
-        public StartKitConfig()
+        public StarterKitConfig()
         {
             // Defaults (off and empty)
             Enabled = false;
