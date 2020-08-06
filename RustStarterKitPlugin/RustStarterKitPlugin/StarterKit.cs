@@ -83,7 +83,7 @@ namespace Oxide.Plugins
             _storedData = Interface.Oxide.DataFileSystem.ReadObject<StoredData>(_startKitDataStorageKey);
 
             // If nothing already exists, generate default properties (init list/s and so forth)
-            if (_storedData == null)
+            if (_storedData == null || _storedData.PlayerItemCooldownPeriods == null)
                 _storedData = new StoredData().GenerateDefaults();
         }
 
@@ -146,7 +146,7 @@ namespace Oxide.Plugins
                     Puts($"Command: {command} executed at: {DateTime.UtcNow}UTC");
 
                     // Try to add cool down period for player-item, if successful - set state
-                    if (AddPlayerCoolDownPeriodForItem(player.UserIDString, command.Text, command.CoolDownPeriodInSeconds) == true)
+                    if (AddPlayerCoolDownPeriodForItem(player.UserIDString, command.Text, command.CoolDownPeriodInSeconds))
                         storageHasBeenUpdated = true;
                 }
             }
@@ -232,7 +232,7 @@ namespace Oxide.Plugins
             var key = $"{userId}_{item}";
 
             // Add cool down period (date + cool down in seconds) locally (in-memory)
-            _storedData.PlayerItemCooldownPeriods.Add(key, DateTime.UtcNow.AddSeconds(coolDownPeriodInSeconds));
+            _storedData.PlayerItemCooldownPeriods?.Add(key, DateTime.UtcNow.AddSeconds(coolDownPeriodInSeconds));
 
             return true;
         }
