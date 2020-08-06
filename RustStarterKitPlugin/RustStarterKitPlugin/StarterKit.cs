@@ -146,7 +146,7 @@ namespace Oxide.Plugins
                     Puts($"Command: {command} executed at: {DateTime.UtcNow}UTC");
 
                     // Try to add cool down period for player-item, if successful - set state
-                    if (AddPlayerCoolDownPeriodForItem(player.UserIDString, command.Text, command.CoolDownPeriodInSeconds) == true)
+                    if (AddPlayerCoolDownPeriodForItem(player.UserIDString, command.Text, command.CoolDownPeriodInSeconds))
                         storageHasBeenUpdated = true;
                 }
             }
