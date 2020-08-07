@@ -1,7 +1,5 @@
-# Rust Starter Kit Plugin
-A starter kit plugin for Rust
-
 ## Features
+
 - This enables users to run commands upon respawn.
 - The commands can get the userId injected into them by adding "{0}"
 - This enables users to get any inventory item/s upon respawn.
@@ -10,7 +8,11 @@ A starter kit plugin for Rust
 - The Startup kit cooldown data file is refreshed on new .sav reseting all cooldown periods (per wipe)
 - Shows a configurable message on respawn
 - Allows the removal of existing inventory (torch/stone)
-## Example Configuration
+
+## Configuration
+
+### Example Configuration
+
 ```json
 {
  /* Switch for the plugin */
