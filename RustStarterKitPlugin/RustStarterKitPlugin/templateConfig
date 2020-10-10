@@ -1,0 +1,164 @@
+{
+  /* Switch for the plugin */
+  "Enabled": true,
+  /* The order kits are given in (this is only applicable if more than one kit has been added to "Kits").
+   * Expected values: ["Random", "Sequential", "Ascending", "Decending"] */
+  "RunType": "Random",
+  /* Allows admin mapping of users-kits so that specific kits can be given (controls availability of console command) [starterkit give username/steamid kitname], [starterkit addvip username/steamid] */
+  "EnableConsole": false,
+  "Kits" : [
+	  {
+	      /* Switch to allow VIP assignment only */
+		  "VIP": false,
+	      /* Switch to allow kit to be assigned to player (override of the normal runtype) */
+	      "Enabled": true,
+	      /* Name of kit so it can be assigned - this must be unique */
+	      "Name": "OneSizeFitsAllKit",
+		  /* Switch for command execution on respawn */
+		  "CommandsToRunOnRespawnEnabled": true,
+		  /* The list of commands to run for player on respawn */
+		  "CommandsToRunOnRespawn":[
+			  {
+				   /* The command text to execute (here is injecting userId with {0} */
+				  "Text": "recycler.give {0}",
+				  /*  If you only want to run this once per wipe then you can set to this */
+				  "CoolDownPeriodInSeconds": 999999999
+			  }
+		  ],
+		  /* Switch to give items specified below */
+		  "ItemsToAddToInventoryOnRespawnEnabled": true,
+		  /* List of items to give players */
+		  "ItemsToAddToInventoryOnRespawn": [
+			  {
+				  /* The short code of the item */
+				  "ShortCode": "pumpkin",
+				  /* Min amount to give */
+				  "MinAmount": 2,
+				  /* Min amount to give */
+				  "MaxAmount": 2,
+				  /* The cooldown period is 0 here which means always given each respawn */
+				  "CoolDownPeriodInSeconds": 0,
+				  "IsBlueprint": false
+			  },
+			  {
+				  "ShortCode": "bow.hunting",
+				  "MinAmount": 1,
+				  "MaxAmount": 1,
+				  /* If respawn happens twice in 60 seconds then a bow will not be included on respawn */
+				  "CoolDownPeriodInSeconds": 60,
+				  "IsBlueprint": false
+			  },
+			  {
+				  "ShortCode": "arrow.wooden",
+				  "MinAmount": 5,
+				  "MaxAmount": 10,
+				  "CoolDownPeriodInSeconds": 60,
+				  "IsBlueprint": false
+			  },
+			  {
+				  "ShortCode": "rifle.ak",
+				  /* If the item can take attachments, then they should be defined here - this is optional */
+				  "Attachments": [
+					 {
+						"ShortCode": "torch"
+					 }
+				  ],
+				  "MinAmount": 1,
+				  "MaxAmount": 1,
+				  "CoolDownPeriodInSeconds": 3600,
+				  "IsBlueprint": false
+			  }
+		  ],
+		  "ItemsToGiveRandomly": [],
+		  /* Switch to show player respawn message */
+		  "ShowRespawnMessage": false,
+		  /* The message to set */
+		  "RespawnMessage": "Heres your starter kit!",
+		  /* Switch to remove any existing inventory */
+		  "RemoveExistingInventory": false
+		  /* The probably weight */
+		  "Weight": 0.9,
+		  "GiveAllBlueprints": false
+	  },
+	  {
+		  "VIP": false,
+	      "Enabled": true,
+	      /* Name of kit so it can be assigned - this must be unique */
+	      "Name": "OneSizeFitsAllKit",
+		  /* Switch for command execution on respawn */
+		  "CommandsToRunOnRespawnEnabled": true,
+		  /* The list of commands to run for player on respawn */
+		  "CommandsToRunOnRespawn":[
+			  {
+				   /* The command text to execute (here is injecting userId with {0} */
+				  "Text": "recycler.give {0}",
+				  /*  If you only want to run this once per wipe then you can set to this */
+				  "CoolDownPeriodInSeconds": 999999999
+			  }
+		  ],
+		  /* Switch to give items specified below */
+		  "ItemsToAddToInventoryOnRespawnEnabled": true,
+		  /* List of items to give players */
+		  "ItemsToAddToInventoryOnRespawn": [
+			  {
+				  /* If the short code of the item is "random" then this will be replaced with a random item (defined in "ItemsToGiveRandomly") */
+				  "ShortCode": "random",
+				  /* Multiplier */
+				  "MinAmount": 2,
+				  "MaxAmount": 2,
+				  "CoolDownPeriodInSeconds": 0,
+				  "IsBlueprint": false
+			  },
+			  {
+				  "ShortCode": "rifle.ak",
+				  "Attachments": [
+					 {
+						"ShortCode": "torch"
+					 }
+				  ],
+				  "MinAmount": 1,
+				  "MaxAmount": 1,
+				  "CoolDownPeriodInSeconds": 0,
+				  "IsBlueprint": false
+			  }
+		  ],
+		  "ItemsToGiveRandomly": {
+			  "Items": [
+				 {
+					"ShortCode": "explosive.timed",
+					"MinAmount": 1,
+					"MaxAmount": 2,
+					"Weight": 0.2,
+					"IsBlueprint": false
+				},
+				{
+					"ShortCode": "beancan",
+					"MinAmount": 3,
+					"MaxAmount": 5,
+					"Weight": 0.5,
+					"IsBlueprint": false
+				},
+				{
+					"ShortCode": "explosive.satchel",
+					"MinAmount": 1,
+					"MaxAmount": 3,
+					"Weight": 0.3,
+					"IsBlueprint": false
+				}
+			  ],
+			  "MinAmount" : 1,
+			  "MaxAmount" : 2,
+			  "CanHaveDuplicates" : false
+		  }
+		  /* Switch to show player respawn message */
+		  "ShowRespawnMessage": false,
+		  /* The message to set */
+		  "RespawnMessage": "You have won a special prize!",
+		  /* Switch to remove any existing inventory */
+		  "RemoveExistingInventory": true
+		  /* The probably weight */
+		  "Weight": 0.1,
+		  "GiveAllBlueprints": false
+	  }
+  ]
+}
